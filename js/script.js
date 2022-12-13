@@ -111,6 +111,9 @@ window.addEventListener('load', function(){
         draw(context){
             context.drawImage(this.image, this.x, this.y, this.width, this.height);
         }
+        update(){
+
+        }
     }
     class Bush extends Object {
         constructor(game){
@@ -163,14 +166,20 @@ window.addEventListener('load', function(){
             this.topMargin = 200;
             this.numberOfPlants = 10;
             this.plants = [];
+            this.gameObjects = [];
         }
         render(context, deltaTime){
-            this.owlbear.draw(context);
-            this.owlbear.update(deltaTime);
-            this.plants.forEach(plant => plant.draw(context))
+            this.gameObjects = [this.owlbear, ...this.plants];
+            this.gameObjects.sort((a,b) =>{
+                return (a.y + a.height) - (b.y +b.height);
+            });
+            this.gameObjects.forEach(object => {
+                object.draw(context)
+                object.update(deltaTime);
+            });
+            
         }
         init(){
-            
             for (let i = 0; i < this.numberOfPlants; i++){
                 const randomize = Math.random();
                 if (randomize < 0.3)this.plants.push(new Plant(this));
