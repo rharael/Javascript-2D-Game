@@ -52,3 +52,6 @@ canvas:hover ~ #leaves_right{
     50% {top: 56px;}
     100% {top: 50px;}
 }
+#owlbear, #bush, #plant, #grass {
+    display: none;
+}
